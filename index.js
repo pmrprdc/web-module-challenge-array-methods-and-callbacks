@@ -8,19 +8,19 @@ Practice accessing data by console.log-ing the following pieces of data note.
 💡 HINT: You may want to filter the data first 😉*/
 
 //(a) Home Team name for 2014 world cup final
-    const finalHome = fifaData.filter(function(x){
+    const finalYears = fifaData.filter(function(x){
         return x.Stage === "Final" && x.Year === 2014
     })
 
-    console.log(finalHome[0]['Home Team Name'])
+    console.log(finalYears[0]['Home Team Name'])
 //(b) Away Team name for 2014 world cup final
-    console.log(finalHome[0]['Away Team Name'])
+    console.log(finalYears[0]['Away Team Name'])
 //(c) Home Team goals for 2014 world cup final
-    console.log(finalHome[0]['Home Team Goals'])
+    console.log(finalYears[0]['Home Team Goals'])
 //(d) Away Team goals for 2014 world cup final
-    console.log(finalHome[0]['Away Team Goals'])
+    console.log(finalYears[0]['Away Team Goals'])
 //(e) Winner of 2014 world cup final */
-    console.log(finalHome[0]['Win conditions'])
+    console.log(finalYears[0]['Win conditions'])
 
 
 /* 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 Task 2: 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 
@@ -33,7 +33,7 @@ Use getFinals to do the following:
 
 function getFinals(array) {
     const newMap  = array.filter(function(x){
-        return x.Stage === "Final"
+        return x.Stage === "Final" || x.Stage ==="world cup final"
     })
     return newMap;
  }
@@ -93,11 +93,20 @@ Use the higher-order function getWinnersByYear to do the following:
 💡 HINT: the strings returned need to exactly match the string in step 4.
  */
 
-function getWinnersByYear(/* code here */) {
-    /* code here */
+
+function getWinnersByYear(array, gF,gY,gW) {
+  const finalsArr = gF(array);
+  const yearsArr = gY(finalsArr, gF)
+  const winnersArr = gW(array, gF)
+  const finalArray = [];
+  for (let i=0; i < finalsArr.length; i++){
+    finalArray.push(`In ${yearsArr[i]}, ${winnersArr[i]} won the world cup!`)
+  }
+  return finalArray;
+   
 }
 
-
+console.log(getWinnersByYear(fifaData, getFinals, getYears, getWinners))
 
 /* 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 Task 6: 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀
 Use the higher order function `getAverageGoals` to do the following: 
